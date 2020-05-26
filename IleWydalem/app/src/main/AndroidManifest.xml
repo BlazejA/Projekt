@@ -13,10 +13,7 @@
             android:name=".StronaGlowna"
             android:label="@string/title_activity_strona_glowna"
             android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity
-            android:name=".dodajNowyWpis"
-            android:label="@string/title_activity_dodaj_nowy_wpis" />
-        <activity android:name=".GlownyEkran" />
+
         <activity android:name=".RejestracjaActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
