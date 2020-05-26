@@ -9,6 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".StronaGlowna"
+            android:label="@string/title_activity_strona_glowna"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".dodajNowyWpis"
+            android:label="@string/title_activity_dodaj_nowy_wpis" />
+        <activity android:name=".GlownyEkran" />
+        <activity android:name=".RejestracjaActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
