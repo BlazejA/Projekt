@@ -1,6 +1,8 @@
 package com.example.ilewydalem;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,16 +16,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void ClickMe(View v){
+    public void ClickMe(View v) {
         Intent i = null;
-        switch(v.getId()){
+        Fragment fragment = null;
+        switch (v.getId()) {
             case R.id.rejestBTN:
-                 i = new Intent(this, RejestracjaActivity.class);
+                i = new Intent(this, RejestracjaActivity.class);
                 break;
             case R.id.zalogujBTN:
                 i = new Intent(this, StronaGlowna.class);
+//                fragment = (Fragment) StronaGlowna.class;
+//                try {
+//                    fragment = (Fragment) new fragment();
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                FragmentManager fragmentManager = getSupportFragmentManager();
+//                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 break;
         }
+
         startActivity(i);
     }
 }

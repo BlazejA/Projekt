@@ -18,7 +18,7 @@
             android:title="Edit" />
     </group>
 
-    <item android:title="Acc">
+    <item android:title="Account">
         <menu>
             <item
                 android:id="@+id/nav_logout"
