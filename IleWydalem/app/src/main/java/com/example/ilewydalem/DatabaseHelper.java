@@ -32,7 +32,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     + OPIS + " TEXT, "
                     + METODA + " TEXT, "
                     + DATA + " DATE, "
-                    + KONTO + " TEXT "+ ")";
+                    + KONTO + " TEXT " + ")";
 
     public static final String CREATE_ACC_TABLE =
             "CREATE TABLE " + ACCOUNT_TABLE + " ("
@@ -95,18 +95,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Tabela z uzytkownikami
 
-    public boolean insertAcc(String email, String haslo){
+    public boolean insertAcc(String email, String haslo) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(EMAIL, email);
         values.put(HASLO, haslo);
-        long i = db.insert(ACCOUNT_TABLE,null,  values);
+        long i = db.insert(ACCOUNT_TABLE, null, values);
         return i != -1;
     }
-    public boolean checkEmail(String email){
+
+    public boolean checkEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("Select * from konto where EMAIL=?", new String[]{email});
-        return c.getCount()<0;
+        Cursor c = db.rawQuery("SELECT * FROM " + KONTO + " WHERE " + EMAIL + " =?", new String[]{email});
+        return c.getCount() <= 0;
+    }
+
+    public boolean isExisting(String email, String haslo) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + KONTO + " WHERE " + EMAIL + "=? AND " + HASLO +
+                " =?", new String[]{email, haslo});
+        return c.getCount() > 0;
     }
 
 

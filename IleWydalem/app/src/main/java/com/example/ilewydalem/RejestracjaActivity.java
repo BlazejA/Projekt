@@ -4,14 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 public class RejestracjaActivity extends AppCompatActivity {
     DatabaseHelper db;
     EditText email, haslo, potwierdz;
-    Button reg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,12 +17,10 @@ public class RejestracjaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rejestracja);
 
         db = new DatabaseHelper(this);
-        email = (EditText) findViewById(R.id.emailTXT);
+        email = (EditText) findViewById(R.id.LoginTXT);
         haslo = (EditText) findViewById(R.id.regHasloTXT);
         potwierdz = (EditText) findViewById(R.id.powtorzTXT);
-        reg = (Button) findViewById(R.id.rejeBTN);
     }
-
 
     public void registerMe(View v) {
         String e = email.getText().toString();
@@ -36,14 +32,16 @@ public class RejestracjaActivity extends AppCompatActivity {
         } else {
             if (h.equals(p)) {
                 Boolean sprawdz = db.checkEmail(e);
-                if (sprawdz == true){
-                    Boolean insert = db.insertAcc(e,h);
-                    if(insert==true){
+                if (sprawdz == true) {
+                    Boolean insert = db.insertAcc(e, h);
+                    if (insert == true) {
                         Toast.makeText(this, "Utworzono nowe konto!", Toast.LENGTH_SHORT).show();
                     }
-                }else{
+                } else {
                     Toast.makeText(this, "Istnieje takie konto!", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Toast.makeText(this, "Podane hasła się różnią!", Toast.LENGTH_SHORT).show();
             }
         }
     }

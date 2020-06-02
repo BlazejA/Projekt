@@ -67,8 +67,10 @@ public class StronaGlowna extends AppCompatActivity implements NavigationView.On
                         new NotificationsFragment()).commit();
                 break;
             case R.id.nav_logout:
-                Intent i = new Intent(this, MainActivity.class);
+                Intent i = getBaseContext().getPackageManager().getLaunchIntentForPackage(getBaseContext().getPackageName());
+                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(i);
+                finish();
                 break;
         }
         drawer.closeDrawer(GravityCompat.START);
