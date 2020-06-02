@@ -7,11 +7,11 @@
     tools:context=".MainActivity">
 
     <EditText
-        android:id="@+id/loginTXT"
+        android:id="@+id/emailTXT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Login"
+        android:hint="Email"
         android:inputType="textPersonName"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

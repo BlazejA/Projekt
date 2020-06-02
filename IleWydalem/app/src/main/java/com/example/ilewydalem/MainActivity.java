@@ -18,24 +18,14 @@ public class MainActivity extends AppCompatActivity {
 
     public void ClickMe(View v) {
         Intent i = null;
-        Fragment fragment = null;
         switch (v.getId()) {
             case R.id.rejestBTN:
                 i = new Intent(this, RejestracjaActivity.class);
                 break;
             case R.id.zalogujBTN:
                 i = new Intent(this, StronaGlowna.class);
-//                fragment = (Fragment) StronaGlowna.class;
-//                try {
-//                    fragment = (Fragment) new fragment();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                fragmentManager.beginTransaction().replace(R.id.fragment_container, fragment).commit();
                 break;
         }
-
         startActivity(i);
     }
 }
