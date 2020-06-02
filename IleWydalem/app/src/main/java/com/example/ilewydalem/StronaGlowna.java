@@ -74,6 +74,10 @@ public class StronaGlowna extends AppCompatActivity implements NavigationView.On
                 startActivity(i);
                 finish();
                 break;
+            case R.id.nav_omnie:
+                Intent x = new Intent(this, oMnie.class);
+                startActivity(x);
+                break;
         }
         drawer.closeDrawer(GravityCompat.START);
         return true;

@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -16,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     EditText e, h;
 
     DatabaseHelper db;
+    Animation anim;
+    Button btn, btn1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
         db = new DatabaseHelper(this);
         e = (EditText) findViewById(R.id.LoginTXT);
         h = (EditText) findViewById(R.id.hasloTXT);
+        btn = (Button) findViewById(R.id.rejestBTN);
+        btn1 = (Button) findViewById(R.id.zalogujBTN);
+        anim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.jump);
+        btn.startAnimation(anim);
+        btn1.startAnimation(anim);
     }
 
     public void ClickMe(View v) {
