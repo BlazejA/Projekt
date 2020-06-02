@@ -40,8 +40,8 @@ public class HomeFragment extends Fragment {
     private HomeViewModel homeViewModel;
     DatabaseHelper db;
     TextView dzis;
-    ListView listView1, listView2, listView3;
 
+    ListView listView1, listView2, listView3;
     ArrayList<String> list1,list2,list3;
     ArrayAdapter adapter1,adapter2,adapter3;
 

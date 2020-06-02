@@ -68,29 +68,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id != -1;
     }
 
-    public boolean updateExpese(int id, String kategoria, String Nowakategoria, double wartosc, String opis, String metoda) {
-        ContentValues values = new ContentValues();
-        values.put(KATEGORIA, kategoria);
-        values.put(WARTOSC, wartosc);
-        values.put(OPIS, opis);
 
-        SQLiteDatabase db = getWritableDatabase();
-        int updated = db.update(DATABASE_TABLE, values,
-                ID + "=?",
-                new String[]{Integer.toString(id)});
-        db.close();
-
-        return (updated == 1);
+    public void deleteAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "DELETE FROM " + DATABASE_TABLE;
+        db.execSQL(query);
     }
 
-    public boolean deleteOne(int id) {
-        SQLiteDatabase db = getWritableDatabase();
-        int rowsDeleted = db.delete(DATABASE_TABLE,
-                ID + " =? ",
-                new String[]{Integer.toString(id)});
-        db.close();
-
-        return (rowsDeleted == 1);
+    public Cursor selectAll() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "SELECT * FROM " + DATABASE_TABLE;
+        Cursor c = db.rawQuery(query, null);
+        return c;
     }
 
     public Double selectPrice(String data) {
@@ -102,6 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return 0.0;
         }
     }
+
 
     public Cursor selectLast() {
         SQLiteDatabase db = this.getWritableDatabase();
