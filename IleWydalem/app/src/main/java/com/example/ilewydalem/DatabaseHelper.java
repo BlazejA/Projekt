@@ -75,16 +75,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(query);
     }
 
-    public Cursor selectAll() {
+    public Cursor selectAll(String konto) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String query = "SELECT * FROM " + DATABASE_TABLE;
+        String query = "SELECT * FROM " + DATABASE_TABLE+" WHERE KONTO = '"+ konto+"'";
         Cursor c = db.rawQuery(query, null);
         return c;
     }
 
-    public Double selectPrice(String data) {
+    public Double selectPrice(String data,String konto) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT SUM(WARTOSC) FROM budzet WHERE DATA =?", new String[]{data});
+        Cursor c = db.rawQuery("SELECT SUM(WARTOSC) FROM budzet WHERE DATA =? AND KONTO = '" + konto +"'", new String[]{data});
         if (c.moveToFirst()) {
             return c.getDouble(0);
         } else {
@@ -93,9 +93,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    public Cursor selectLast() {
+    public Cursor selectLast(String konto) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE ID = (SELECT MAX(ID) FROM " + DATABASE_TABLE + ")", null);
+        Cursor c = db.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE "
+                + KONTO + " = '" + konto + "' ORDER BY ID DESC LIMIT 1" , null);
 
         return c;
 

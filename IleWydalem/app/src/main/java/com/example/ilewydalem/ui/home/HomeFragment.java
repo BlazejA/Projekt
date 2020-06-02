@@ -56,7 +56,8 @@ public class HomeFragment extends Fragment {
         list1 = new ArrayList<>();
         list2 = new ArrayList<>();
         list3 = new ArrayList<>();
-        Cursor c = db.selectLast();
+        String konto = getActivity().getIntent().getStringExtra("email");
+        Cursor c = db.selectLast(konto);
 
         if(c.getCount()==0){
             Toast.makeText(getContext(), "Brak wydatków dzisaj", Toast.LENGTH_SHORT).show();
@@ -77,7 +78,7 @@ public class HomeFragment extends Fragment {
             }
         }
         dzis = (TextView) root.findViewById(R.id.dzisTXT);
-        String kwota = db.selectPrice(now()).toString();
+        String kwota = db.selectPrice(now(), konto).toString();
         dzis.setText(kwota);
 
         return root;

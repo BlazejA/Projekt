@@ -34,8 +34,9 @@ public class NotificationsFragment extends Fragment {
         db = new DatabaseHelper(getContext());
 
         listView1 = (ListView) root.findViewById(R.id.lv1);
+        String konto = getActivity().getIntent().getStringExtra("email");
 
-        Cursor c = db.selectAll();
+        Cursor c = db.selectAll(konto);
         list1 = new ArrayList<>();
 
         if(c.getCount()==0){
