@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -16,7 +17,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String KATEGORIA = "KATEGORIA";
     public static final String WARTOSC = "WARTOSC";
     public static final String OPIS = "OPIS";
-    public static final String METODA = "METODA";
     public static final String DATA = "DATA";
     public static final String KONTO = "KONTO";
 
@@ -28,9 +28,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + DATABASE_TABLE + " ("
                     + ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                     + KATEGORIA + " TEXT not null, "
-                    + WARTOSC + " FLOAT not null, "
+                    + WARTOSC + " REAL not null, "
                     + OPIS + " TEXT, "
-                    + METODA + " TEXT, "
                     + DATA + " DATE, "
                     + KONTO + " TEXT " + ")";
 
@@ -56,13 +55,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
     }
 
-    public boolean insertExpese(String kategoria, double wartosc, String opis, String metoda) {
-        SQLiteDatabase db = this.getWritableDatabase();
+    public boolean insertExpese(String kategoria, double wartosc, String opis, String data, String konto) {
+        SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KATEGORIA, kategoria);
         values.put(WARTOSC, wartosc);
         values.put(OPIS, opis);
-        values.put(METODA, metoda);
+        values.put(DATA, data);
+        values.put(KONTO, konto);
+        Log.d("proba", "Dodawanie" + kategoria);
         long id = db.insert(DATABASE_TABLE, null, values);
         return id != -1;
     }
@@ -72,7 +73,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(KATEGORIA, kategoria);
         values.put(WARTOSC, wartosc);
         values.put(OPIS, opis);
-        values.put(METODA, metoda);
 
         SQLiteDatabase db = getWritableDatabase();
         int updated = db.update(DATABASE_TABLE, values,
@@ -93,6 +93,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return (rowsDeleted == 1);
     }
 
+    public Double selectPrice(String data) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery("SELECT SUM(WARTOSC) FROM budzet WHERE DATA =?", new String[]{data});
+        if (c.moveToFirst()) {
+            return c.getDouble(0);
+        } else {
+            return 0.0;
+        }
+    }
+
+    public Cursor selectLast() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM " + DATABASE_TABLE + " WHERE ID = (SELECT MAX(ID) FROM " + DATABASE_TABLE + ")", null);
+
+        return c;
+
+    }
+
     //Tabela z uzytkownikami
 
     public boolean insertAcc(String email, String haslo) {
@@ -106,13 +124,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public boolean checkEmail(String email) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + KONTO + " WHERE " + EMAIL + " =?", new String[]{email});
+        Cursor c = db.rawQuery("SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + EMAIL + " =?", new String[]{email});
         return c.getCount() <= 0;
     }
 
     public boolean isExisting(String email, String haslo) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM " + KONTO + " WHERE " + EMAIL + "=? AND " + HASLO +
+        Cursor c = db.rawQuery("SELECT * FROM " + ACCOUNT_TABLE + " WHERE " + EMAIL + "=? AND " + HASLO +
                 " =?", new String[]{email, haslo});
         return c.getCount() > 0;
     }

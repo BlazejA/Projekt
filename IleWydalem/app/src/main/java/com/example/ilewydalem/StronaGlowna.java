@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.example.ilewydalem.ui.dashboard.DashboardFragment;
 import com.example.ilewydalem.ui.home.HomeFragment;
@@ -16,6 +17,7 @@ import com.google.android.material.navigation.NavigationView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.core.view.GravityCompat;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -51,7 +53,7 @@ public class StronaGlowna extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
+     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_home:
@@ -85,4 +87,5 @@ public class StronaGlowna extends AppCompatActivity implements NavigationView.On
             super.onBackPressed();
         }
     }
+
 }

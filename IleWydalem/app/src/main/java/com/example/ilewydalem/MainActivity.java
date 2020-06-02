@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
                 Boolean czyIs = db.isExisting(email, haslo);
                 if (czyIs) {
                     i = new Intent(this, StronaGlowna.class);
+                    i.putExtra("email",email);
                 } else {
                     Toast.makeText(this, "Błędny email lub haslo!", Toast.LENGTH_SHORT).show();
                 }
